@@ -59,5 +59,9 @@ namespace ToDo.Services
             }
             
         }
+        public void Count()
+        {
+            Console.WriteLine("27");
+        }
     }
 }

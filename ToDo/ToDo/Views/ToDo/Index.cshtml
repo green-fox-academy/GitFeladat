@@ -1,0 +1,133 @@
+﻿@model List<ToDo>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <table class="table table-bordered table-responsive table-hover">
+        <caption style="font-size:20px;color:black;">To Do List</caption>
+        <thead style="background-color:black;color:white">
+            <tr>
+
+                <th scope="col">What to do?</th>
+                <th scope="col">Created</th>
+                <th scope="col">Finished?</th>
+                <th scope="col">Urgent?</th>
+            </tr>
+        </thead>
+        @foreach (ToDo t in Model)
+        {
+            if (t.Finished)
+            {
+        <tr style="background-color:green; color:white">
+            
+            <td>@t.Text</td>
+            <td>@t.CreatedAt</td>
+            <td>@t.Finished</td>
+            <td>@t.Urgent</td>
+        </tr>
+            }
+            else if (t.Urgent)
+            {
+                <tr style="background-color:red; color:white">
+                    
+                    <td>@t.Text</td>
+                    <td>@t.CreatedAt</td>
+                    <td>@t.Finished</td>
+                    <td>@t.Urgent</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    
+                    <td>@t.Text</td>
+                    <td>@t.CreatedAt</td>
+                    <td>@t.Finished</td>
+                    <td>@t.Urgent</td>
+                </tr>
+            }
+
+
+
+        }
+    </table>
+    <form action="AddNewElement" method="post">
+        <fieldset>
+            <legend>Add new "To Do"</legend>
+            <table>
+                <tr>
+                    <td>What to do?</td>
+                    <td><input type="text" name="Text"></td>
+                </tr>
+                <tr>
+                    <td>Is it urgent?</td>
+                    <td><input type="checkbox" name="Urgent" value="true"></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Add new item!</button></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+    <form action="CheckElement" method="post">
+        <fieldset>
+            <legend>Check Element</legend>
+            <select name="id">
+                @foreach (ToDo td in Model)
+                {
+                    if (!td.Finished)
+                    {
+                        <option value=@td.ID>@td.Text</option>
+                    }
+                }
+            </select>
+            <button type="submit">Check</button>
+        </fieldset>
+    </form>
+    <form action="SetUrgent" method="post">
+        <fieldset>
+            <legend>Set Urgent</legend>
+            <select name="id">
+                @foreach (ToDo td in Model)
+                {
+                    if (!td.Urgent && !td.Finished)
+                    {
+                        <option value=@td.ID>@td.Text</option>
+                    }
+                }
+            </select>
+            <button type="submit">Set Urgent</button>
+        </fieldset>
+    </form>
+    <form action="RemoveElement" method="post">
+        <fieldset>
+            <legend>Delete element</legend>
+            <select name="id">
+                @foreach (ToDo td in Model)
+                {
+                    <option value=@td.ID>@td.Text</option>
+                }
+            </select>
+            <button type="submit">Delete</button>
+        </fieldset>
+    </form>
+    <form action="SaveAll" method="post">
+        <fieldset>
+            <legend>Save all element</legend>
+            <button type="submit">Save</button>
+        </fieldset>
+    </form>
+    <form action="LoadAll" method="post">
+        <fieldset>
+            <legend>Load all element</legend>
+            <button type="submit">Load</button>
+        </fieldset>
+    </form>
+</body>
+</html>
+

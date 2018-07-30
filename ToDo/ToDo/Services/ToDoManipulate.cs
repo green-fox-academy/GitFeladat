@@ -63,5 +63,10 @@ namespace ToDo.Services
         {
             Console.WriteLine("27");
         }
+
+        public void Greet()
+        {
+            Console.WriteLine("Laci");
+        }
     }
 }
